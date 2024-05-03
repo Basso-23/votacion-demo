@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
 import { adminAtom } from "@/atom";
+import Banner from "@/components/Banner";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -35,10 +36,10 @@ const Dashboard = () => {
   }, [router, setCurrentUser]);
 
   return (
-    <main className=" sm:pt-[6rem] pt-[5rem]">
-      <section className="pageSize min-h-[100svh]">
-        {isAdmin ? <div>ADMIN</div> : <div>DIRIGENTE</div>}
-      </section>
+    <main className="sm:pt-[6rem] pt-[5rem]">
+      <div className="pageSize min-h-[100svh]">
+        <Banner />
+      </div>
     </main>
   );
 };

@@ -55,7 +55,7 @@ const Navbar = () => {
         {currentUser && (
           <div className="flex items-center ">
             {/*//* Cuenta */}
-            <div className="text-[#0061FE] text-[13px] font-semibold">
+            <div className="text-[#0061FE] text-[13px] font-semibold sm:flex hidden">
               {isAdmin ? <div>ADMIN</div> : <div>DIRIGENTE</div>}
             </div>
 
