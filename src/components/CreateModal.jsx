@@ -13,6 +13,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import Select from "react-select";
+import { centro } from "@/assets/json/centro";
+import { mesa } from "@/assets/json/mesa";
+import { dirigente } from "@/assets/json/dirigente";
+
 const CreateModal = () => {
   const [botonDeshabilitado, setBotonDeshabilitado] = useState(true);
 
@@ -32,7 +37,6 @@ const CreateModal = () => {
         lowerCaseData[key] = data[key].toLowerCase();
       }
     }
-
     console.log(lowerCaseData);
   };
 
@@ -41,17 +45,20 @@ const CreateModal = () => {
     const valueApellido = document.getElementById("apellido").value;
     const valueDireccion = document.getElementById("direccion").value;
     const valueCedula = document.getElementById("cedula").value;
+    const valueCentro = document.getElementById("centro").value;
     if (
       valueNombre !== "" &&
       valueApellido !== "" &&
       valueDireccion !== "" &&
-      valueCedula !== ""
+      valueCedula !== "" &&
+      valueCentro !== ""
     ) {
       setBotonDeshabilitado(false);
     } else {
       setBotonDeshabilitado(true);
     }
   };
+
   return (
     <>
       <AlertDialog>
@@ -67,87 +74,111 @@ const CreateModal = () => {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Registrar votante</AlertDialogTitle>
-            <AlertDialogDescription asChild>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className=" grid grid-cols-2 gap-3">
-                  <div>
-                    {/*//* Nombre label */}
-                    <label>nombre</label>
-                    {/*//* Nombre input */}
-                    <input
-                      id="nombre"
-                      required
-                      type="text"
-                      placeholder=""
-                      {...register("nombre", { required: true })}
-                      onChange={() => {
-                        checkInputs();
-                      }}
-                    />
-                  </div>
-
-                  <div>
-                    {/*//* Apellido label */}
-                    <label>apellido</label>
-                    {/*//* Apellido input */}
-                    <input
-                      id="apellido"
-                      required
-                      type="text"
-                      placeholder=""
-                      {...register("apellido", { required: true })}
-                      onChange={() => {
-                        checkInputs();
-                      }}
-                    />
-                  </div>
-
-                  <div>
-                    {/*//* Cedula label */}
-                    <label>Cédula</label>
-                    {/*//* Cedula input */}
-                    <input
-                      id="cedula"
-                      required
-                      type="text"
-                      placeholder=""
-                      {...register("cedula", { required: true })}
-                      onChange={() => {
-                        checkInputs();
-                      }}
-                    />
-                  </div>
-
-                  <div>
-                    {/*//* Direccion label */}
-                    <label>Dirección</label>
-                    {/*//* Direccion input */}
-                    <input
-                      id="direccion"
-                      required
-                      type="text"
-                      placeholder=""
-                      {...register("direccion", { required: true })}
-                      onChange={() => {
-                        checkInputs();
-                      }}
-                    />
-                  </div>
-                </div>
-                <AlertDialogFooter>
-                  <AlertDialogAction asChild disabled={botonDeshabilitado}>
-                    <input
-                      style={{ marginTop: 0, padding: 0 }}
-                      className="submit_btn"
-                      value="Guardar"
-                      type="submit"
-                    />
-                  </AlertDialogAction>
-                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                </AlertDialogFooter>
-              </form>
-            </AlertDialogDescription>
           </AlertDialogHeader>
+          <AlertDialogDescription asChild>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className=" grid grid-cols-2 gap-3">
+                <div>
+                  {/*//* Nombre label */}
+                  <label>nombre</label>
+                  {/*//* Nombre input */}
+                  <input
+                    id="nombre"
+                    required
+                    type="text"
+                    placeholder=""
+                    {...register("nombre", { required: true })}
+                    onChange={() => {
+                      checkInputs();
+                    }}
+                  />
+                </div>
+
+                <div>
+                  {/*//* Apellido label */}
+                  <label>apellido</label>
+                  {/*//* Apellido input */}
+                  <input
+                    id="apellido"
+                    required
+                    type="text"
+                    placeholder=""
+                    {...register("apellido", { required: true })}
+                    onChange={() => {
+                      checkInputs();
+                    }}
+                  />
+                </div>
+
+                <div>
+                  {/*//* Cedula label */}
+                  <label>Cédula</label>
+                  {/*//* Cedula input */}
+                  <input
+                    id="cedula"
+                    required
+                    type="text"
+                    placeholder=""
+                    {...register("cedula", { required: true })}
+                    onChange={() => {
+                      checkInputs();
+                    }}
+                  />
+                </div>
+
+                <div>
+                  {/*//* Direccion label */}
+                  <label>Dirección</label>
+                  {/*//* Direccion input */}
+                  <input
+                    id="direccion"
+                    required
+                    type="text"
+                    placeholder=""
+                    {...register("direccion", { required: true })}
+                    onChange={() => {
+                      checkInputs();
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <div>
+                    {/*//* Centro label */}
+                    <label>Centro de votacón</label>
+                  </div>
+                  {/*//* Centro select */}
+                  <Select
+                    className="basic-single"
+                    classNamePrefix="select"
+                    isDisabled={false}
+                    isLoading={false}
+                    isClearable={false}
+                    isRtl={false}
+                    isSearchable={true}
+                    defaultValue={centro[0]}
+                    name="centro"
+                    options={centro}
+                    id="centro"
+                    onChange={() => {
+                      checkInputs();
+                    }}
+                  />
+                </div>
+              </div>
+              <AlertDialogFooter>
+                <AlertDialogAction asChild disabled={botonDeshabilitado}>
+                  <input
+                    style={{ marginTop: 0, padding: 0 }}
+                    className="submit_btn"
+                    value="Guardar"
+                    type="submit"
+                  />
+                </AlertDialogAction>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              </AlertDialogFooter>
+            </form>
+          </AlertDialogDescription>
         </AlertDialogContent>
       </AlertDialog>
     </>

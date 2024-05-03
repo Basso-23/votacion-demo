@@ -9,6 +9,11 @@ import { adminAtom } from "@/atom";
 
 import Banner from "@/sections/Banner";
 
+import Select from "react-select";
+import { centro } from "@/assets/json/centro";
+import { mesa } from "@/assets/json/mesa";
+import { dirigente } from "@/assets/json/dirigente";
+
 const Dashboard = () => {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useAtom(userAtom);
@@ -39,6 +44,43 @@ const Dashboard = () => {
   return (
     <main className="sm:pt-[6rem] pt-[5rem]">
       <div className="pageSize min-h-[100svh]">
+        <Select
+          className="basic-single"
+          classNamePrefix="select"
+          isDisabled={false}
+          isLoading={false}
+          isClearable={false}
+          isRtl={false}
+          isSearchable={true}
+          defaultValue={centro[0]}
+          name="centro"
+          options={centro}
+        />
+        <Select
+          className="basic-single"
+          classNamePrefix="select"
+          isDisabled={false}
+          isLoading={false}
+          isClearable={false}
+          isRtl={false}
+          isSearchable={true}
+          defaultValue={mesa[0]}
+          name="mesa"
+          options={mesa}
+        />
+        <Select
+          className="basic-single"
+          classNamePrefix="select"
+          isDisabled={false}
+          isLoading={false}
+          isClearable={false}
+          isRtl={false}
+          isSearchable={true}
+          defaultValue={dirigente[0]}
+          name="dirigente"
+          options={dirigente}
+        />
+
         <Banner />
       </div>
     </main>
