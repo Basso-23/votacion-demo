@@ -15,22 +15,21 @@ const App = () => {
   //FUNCTION: Valida si el usuario esta logueado
   useEffect(() => {
     const validateUser = onAuthStateChanged(auth, (user) => {
-      //* SI esta logueado se asigna la key del usuario a la variable userState y no puede ver la pantalla de Login
+      //* Usuario logged
       if (user) {
         if (router.pathname === "/") {
           router.push("/Dashboard");
         }
-        //* Asigna el email del usuario a la variable userState
+        //* Asigna el email  del usuario
         setCurrentUser(user.email);
       }
-      //* NO esta logueado, redirige a Login
+      //* Usuario NO logged
       if (!user) {
         if (router.pathname !== "/") {
           router.push("/");
         }
       }
     });
-
     return () => validateUser();
   }, [router, setCurrentUser]);
 
@@ -97,7 +96,7 @@ const App = () => {
                 style={{ backgroundColor: "#cbcbcb", pointerEvents: "none" }}
                 className="submit_btn flex relative justify-center mb-[10px] mt-[5px] border-none"
               >
-                <div className="lds-ellipsis -ml-14 py-[11px] ">
+                <div className="lds-ellipsis -ml-14 py-[10px] ">
                   <div></div>
                   <div></div>
                   <div></div>

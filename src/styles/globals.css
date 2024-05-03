@@ -32,7 +32,7 @@ input {
   margin-top: 5px;
   margin-bottom: 10px;
   border-radius: 0.125rem;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 input:focus {
@@ -52,6 +52,7 @@ input:focus {
   transition-duration: 150ms;
   border-radius: 0.125rem;
   border: none;
+  margin-top: 5px;
 }
 
 .submit_btn:hover {
@@ -127,4 +128,5 @@ input:focus {
 
 .error {
   color: #d23931;
+  padding-top: 5px;
 }
