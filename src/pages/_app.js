@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/sections/Navbar";
 import "@/styles/globals.css";
 import "@fontsource-variable/inter";
 

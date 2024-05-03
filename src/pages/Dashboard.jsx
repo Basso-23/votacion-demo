@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
 import { adminAtom } from "@/atom";
-import Banner from "@/components/Banner";
+import Banner from "@/sections/Banner";
 
 const Dashboard = () => {
   const router = useRouter();
