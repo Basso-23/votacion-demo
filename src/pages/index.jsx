@@ -6,33 +6,29 @@ import { useForm } from "react-hook-form";
 const App = () => {
   const [currentUser, setCurrentUser] = useAtom(userAtom);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => console.log(data);
 
-  console.log(watch("example")); // watch input value by passing the name of it
-
   return (
     <main>
-      <section className="pageSize flex min-h-screen">
-        <div className="m-auto h-fit">
+      <section className="pageSize flex min-h-[100svh]">
+        <div className="mx-auto mt-36 h-fit w-full max-w-[400px]">
+          <h1 className=" font-semibold mb-4 text-[25px]">Inicia sesión</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <label>correo electrónico</label>
             <input
               required
-              placeholder="nombre"
+              placeholder=""
               {...register("nombre", { required: true })}
             />
+            <label>contraseña</label>
             <input
               required
-              placeholder="edad"
+              placeholder=""
               {...register("edad", { required: true })}
             />
-            <input type="submit" />
+            <input className="submit_btn " value="continuar" type="submit" />
           </form>
         </div>
       </section>
