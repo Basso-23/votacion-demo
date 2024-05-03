@@ -6,14 +6,13 @@ import { useForm } from "react-hook-form";
 import { useAtom } from "jotai";
 import { userAtom } from "@/atom";
 import { adminAtom } from "@/atom";
-import { createAtom } from "@/atom";
+
 import Banner from "@/sections/Banner";
 
 const Dashboard = () => {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useAtom(userAtom);
   const [isAdmin, setIsAdmin] = useAtom(adminAtom);
-  const [createModal, setCreateModal] = useAtom(createAtom);
 
   //FUNCTION: Valida si el usuario esta logueado
   useEffect(() => {
