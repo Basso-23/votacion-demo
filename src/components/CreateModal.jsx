@@ -32,54 +32,58 @@ import { originalAtom } from "@/atom";
 import { dataAtom } from "@/atom";
 
 const CreateModal = () => {
-  const [original, setOriginal] = useAtom(originalAtom);
-  const [data, setData] = useAtom(dataAtom);
-
   const [botonDeshabilitado, setBotonDeshabilitado] = useState(true);
   const [valueCentro, setValueCentro] = useState("");
   const [valueMesa, setValueMesa] = useState("");
   const [valueDirigente, setValueDirigente] = useState("");
+  const [original, setOriginal] = useAtom(originalAtom);
+  const [data, setData] = useAtom(dataAtom);
 
   //FUNCTION: Variables del form (react-hook-form)
   const { register, handleSubmit, resetField } = useForm();
 
   //FUNCTION: onSubmit del form (react-hook-form)
   const onSubmit = (data) => {
-    data.centro = valueCentro;
-    data.mesa = valueMesa;
-    data.dirigente = valueDirigente;
-    data.key = keyMaker(12);
-    data.index = getCurrentDate();
-    data.voto = "no";
+    data.centro = valueCentro; //* Añade centro
+    data.mesa = valueMesa; //* Añade mesa
+    data.dirigente = valueDirigente; //* Añade dirigente
+    data.voto = "no"; //* Añade voto
+    data.key = keyMaker(12); //* Añade key
+    data.index = getCurrentDate(); //* Añade index
 
-    // Creamos un nuevo objeto para almacenar los valores en minúsculas
+    //* Variable donde se guardara la info en minisuculas
     const lowerCaseData = {};
 
-    // Iteramos sobre todas las claves (propiedades) del objeto data
     for (let key in data) {
-      // Verificamos si la propiedad es propia del objeto (no heredada)
       if (data.hasOwnProperty(key)) {
-        // Convertimos el valor de la propiedad a minúsculas y lo asignamos al nuevo objeto
+        //* Convierte el valor de la a minúsculas y lo asignamos al nuevo objeto
         lowerCaseData[key] = data[key].toLowerCase();
       }
     }
 
-    //* nombre de la coleccion, info a guardar, variable donde guardar los datos y nombre del campo por el que se ordenara
+    //* Nombre de la coleccion, info a guardar, variable donde guardar los datos y nombre del campo por el que se ordenara
     firebase_write("votantes", lowerCaseData, setOriginal, "index");
-    console.log(lowerCaseData);
+
+    //* Data que se envio
+    //console.log(lowerCaseData);
+
+    //* Limpia los inputs
     limpiar();
   };
 
+  //FUNCTION: Cada vez que la data original cambia se la asigna a data
   useEffect(() => {
     setData(original);
   }, [original]);
 
+  //FUNCTION: Revisa el cambio de todos los inputs
   const checkInputs = () => {
     const valueNombre = document.getElementById("apellido").value;
     const valueApellido = document.getElementById("apellido").value;
     const valueDireccion = document.getElementById("direccion").value;
     const valueCedula = document.getElementById("cedula").value;
 
+    //* Validacion para el boton de guardar
     if (
       valueNombre !== "" &&
       valueApellido !== "" &&
@@ -95,6 +99,14 @@ const CreateModal = () => {
     }
   };
 
+  //FUNCTION: Verifica los selects (necesario)
+  useEffect(() => {
+    if (valueCentro || valueMesa || valueDirigente) {
+      checkInputs();
+    }
+  }, [valueCentro, valueMesa, valueDirigente]);
+
+  //FUNCTION: Limpia todos los inputs
   const limpiar = () => {
     resetField("nombre");
     resetField("apellido");
@@ -105,12 +117,6 @@ const CreateModal = () => {
     setValueDirigente("");
     checkInputs();
   };
-
-  useEffect(() => {
-    if (valueCentro || valueMesa || valueDirigente) {
-      checkInputs();
-    }
-  }, [valueCentro, valueMesa, valueDirigente]);
 
   return (
     <>
@@ -263,6 +269,7 @@ const CreateModal = () => {
               </div>
 
               <AlertDialogFooter>
+                {/*//* Guardar */}
                 <AlertDialogAction asChild disabled={botonDeshabilitado}>
                   <input
                     style={{ marginTop: 20, padding: 0, height: 50 }}
@@ -271,6 +278,7 @@ const CreateModal = () => {
                     type="submit"
                   />
                 </AlertDialogAction>
+                {/*//* Cancelar */}
                 <AlertDialogCancel asChild onClick={limpiar}>
                   <div
                     className=" cursor-pointer select-none"

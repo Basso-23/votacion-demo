@@ -43,7 +43,7 @@ const Navbar = () => {
   };
 
   return (
-    <main className=" w-full fixed border-b bg-white">
+    <main className=" w-full absolute border-b bg-white">
       <section className="pageSize flex justify-between sm:py-4 py-2">
         {/*//* Logo */}
         <div
