@@ -13,6 +13,13 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import {
+  firebase_delete,
+  firebase_edit,
+  firebase_read,
+  firebase_write,
+} from "@/firebase/firebase";
+
 import Select from "react-dropdown-select";
 import { centro } from "@/assets/json/centro";
 import { mesa } from "@/assets/json/mesa";
@@ -20,7 +27,14 @@ import { dirigente } from "@/assets/json/dirigente";
 import { keyMaker } from "@/utils/keyMaker";
 import { getCurrentDate } from "@/utils/getCurrentDate";
 
+import { useAtom } from "jotai";
+import { originalAtom } from "@/atom";
+import { dataAtom } from "@/atom";
+
 const CreateModal = () => {
+  const [original, setOriginal] = useAtom(originalAtom);
+  const [data, setData] = useAtom(dataAtom);
+
   const [botonDeshabilitado, setBotonDeshabilitado] = useState(true);
   const [valueCentro, setValueCentro] = useState("");
   const [valueMesa, setValueMesa] = useState("");
@@ -50,10 +64,15 @@ const CreateModal = () => {
       }
     }
 
+    //* nombre de la coleccion, info a guardar, variable donde guardar los datos y nombre del campo por el que se ordenara
+    firebase_write("votantes", lowerCaseData, setOriginal, "index");
     console.log(lowerCaseData);
-
     limpiar();
   };
+
+  useEffect(() => {
+    setData(original);
+  }, [original]);
 
   const checkInputs = () => {
     const valueNombre = document.getElementById("apellido").value;
@@ -98,11 +117,10 @@ const CreateModal = () => {
       <AlertDialog>
         <AlertDialogTrigger asChild>
           {/*//* Registrar votante button */}
-          <button
-            style={{ paddingBottom: "13px", paddingTop: "13px" }}
-            className="md:max-w-[150px] w-full submit_btn"
-          >
-            <div className="text-[13px]">Registrar votante</div>
+          <button className="md:max-w-[170px] w-full submit_btn">
+            <div style={{ textTransform: "none" }} className="text-[13px]">
+              Registrar votante
+            </div>
           </button>
         </AlertDialogTrigger>
         <AlertDialogContent>
@@ -179,7 +197,9 @@ const CreateModal = () => {
                 <div>
                   <div className=" mb-1">
                     {/*//* Centro label */}
-                    <label>centro de votacón</label>
+                    <label style={{ textTransform: "none" }}>
+                      Centro de votación
+                    </label>
                   </div>
                   {/*//* Centro select */}
                   <Select
@@ -245,7 +265,7 @@ const CreateModal = () => {
               <AlertDialogFooter>
                 <AlertDialogAction asChild disabled={botonDeshabilitado}>
                   <input
-                    style={{ marginTop: 20, padding: 0 }}
+                    style={{ marginTop: 20, padding: 0, height: 50 }}
                     className="submit_btn"
                     value="Guardar"
                     type="submit"
@@ -254,7 +274,7 @@ const CreateModal = () => {
                 <AlertDialogCancel asChild onClick={limpiar}>
                   <div
                     className=" cursor-pointer select-none"
-                    style={{ marginTop: 20 }}
+                    style={{ marginTop: 20, height: 50 }}
                   >
                     Cancelar
                   </div>

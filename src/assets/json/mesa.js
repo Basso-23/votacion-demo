@@ -1,9 +1,5 @@
 export const mesa = [
   {
-    value: "",
-    label: "Ninguno",
-  },
-  {
     value: "3696",
     label: "3696",
   },

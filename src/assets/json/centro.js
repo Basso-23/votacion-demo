@@ -1,9 +1,5 @@
 export const centro = [
   {
-    value: "",
-    label: "Ninguno",
-  },
-  {
     value: "Caseta La Balmoral",
     label: "Caseta La Balmoral",
   },
