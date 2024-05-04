@@ -27,7 +27,7 @@ const CreateModal = () => {
   const [valueDirigente, setValueDirigente] = useState("");
 
   //FUNCTION: Variables del form (react-hook-form)
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, resetField } = useForm();
 
   //FUNCTION: onSubmit del form (react-hook-form)
   const onSubmit = (data) => {
@@ -51,11 +51,12 @@ const CreateModal = () => {
     }
 
     console.log(lowerCaseData);
+
     limpiar();
   };
 
   const checkInputs = () => {
-    const valueNombre = document.getElementById("nombre").value;
+    const valueNombre = document.getElementById("apellido").value;
     const valueApellido = document.getElementById("apellido").value;
     const valueDireccion = document.getElementById("direccion").value;
     const valueCedula = document.getElementById("cedula").value;
@@ -76,9 +77,14 @@ const CreateModal = () => {
   };
 
   const limpiar = () => {
+    resetField("nombre");
+    resetField("apellido");
+    resetField("cedula");
+    resetField("direccion");
     setValueCentro("");
     setValueMesa("");
     setValueDirigente("");
+    checkInputs();
   };
 
   useEffect(() => {
@@ -227,14 +233,8 @@ const CreateModal = () => {
                     type="submit"
                   />
                 </AlertDialogAction>
-                <AlertDialogCancel asChild>
-                  <div
-                    onClick={() => {
-                      limpiar();
-                    }}
-                  >
-                    Cancelar
-                  </div>
+                <AlertDialogCancel onClick={limpiar}>
+                  Cancelar
                 </AlertDialogCancel>
               </AlertDialogFooter>
             </form>
