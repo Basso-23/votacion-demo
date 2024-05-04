@@ -1,6 +1,6 @@
 export const dirigente = [
   {
-    value: "Ninguno",
+    value: "",
     label: "Ninguno",
   },
   {

@@ -17,6 +17,8 @@ import Select from "react-dropdown-select";
 import { centro } from "@/assets/json/centro";
 import { mesa } from "@/assets/json/mesa";
 import { dirigente } from "@/assets/json/dirigente";
+import { keyMaker } from "@/utils/keyMaker";
+import { getCurrentDate } from "@/utils/getCurrentDate";
 
 const CreateModal = () => {
   const [botonDeshabilitado, setBotonDeshabilitado] = useState(true);
@@ -32,6 +34,9 @@ const CreateModal = () => {
     data.centro = valueCentro;
     data.mesa = valueMesa;
     data.dirigente = valueDirigente;
+    data.key = keyMaker(12);
+    data.index = getCurrentDate();
+    data.voto = "no";
 
     // Creamos un nuevo objeto para almacenar los valores en minúsculas
     const lowerCaseData = {};
