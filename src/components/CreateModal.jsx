@@ -177,64 +177,87 @@ const CreateModal = () => {
                 </div>
 
                 <div>
-                  <div>
+                  <div className=" mb-1">
                     {/*//* Centro label */}
                     <label>centro de votacón</label>
                   </div>
                   {/*//* Centro select */}
                   <Select
+                    style={{
+                      borderColor: "#e4e6eb",
+                    }}
+                    placeholder=""
+                    className="capitalize text-black select-sm"
                     options={centro}
                     labelField="label"
                     valueField="value"
                     onChange={(items) => {
                       setValueCentro(items[0].value);
                     }}
+                    backspaceDelete={false}
                   />
                 </div>
 
                 <div>
-                  <div>
+                  <div className=" mb-1">
                     {/*//* Mesa label */}
                     <label>mesa</label>
                   </div>
                   {/*//* Mesa select */}
                   <Select
+                    style={{
+                      borderColor: "#e4e6eb",
+                    }}
+                    placeholder=""
+                    className="capitalize text-black select-sm"
                     options={mesa}
                     labelField="label"
                     valueField="value"
                     onChange={(items) => {
                       setValueMesa(items[0].value);
                     }}
-                  />
-                </div>
-
-                <div>
-                  <div>
-                    {/*//* Dirigente label */}
-                    <label>dirigente</label>
-                  </div>
-                  {/*//* Dirigente select */}
-                  <Select
-                    options={dirigente}
-                    labelField="label"
-                    valueField="value"
-                    onChange={(items) => {
-                      setValueDirigente(items[0].value);
-                    }}
+                    backspaceDelete={false}
                   />
                 </div>
               </div>
+              <div className="mt-5">
+                <div className=" mb-1">
+                  {/*//* Dirigente label */}
+                  <label>dirigente</label>
+                </div>
+                {/*//* Dirigente select */}
+                <Select
+                  style={{
+                    borderColor: "#e4e6eb",
+                  }}
+                  placeholder=""
+                  className="capitalize text-black select-lg"
+                  options={dirigente}
+                  labelField="label"
+                  valueField="value"
+                  onChange={(items) => {
+                    setValueDirigente(items[0].value);
+                  }}
+                  backspaceDelete={false}
+                />
+              </div>
+
               <AlertDialogFooter>
                 <AlertDialogAction asChild disabled={botonDeshabilitado}>
                   <input
-                    style={{ marginTop: 0, padding: 0 }}
+                    style={{ marginTop: 20, padding: 0 }}
                     className="submit_btn"
                     value="Guardar"
                     type="submit"
                   />
                 </AlertDialogAction>
-                <AlertDialogCancel onClick={limpiar}>
-                  Cancelar
+                <AlertDialogCancel asChild onClick={limpiar}>
+                  <div
+                    className=" cursor-pointer select-none"
+                    style={{ marginTop: 20 }}
+                  >
+                    Cancelar
+                  </div>
                 </AlertDialogCancel>
               </AlertDialogFooter>
             </form>
