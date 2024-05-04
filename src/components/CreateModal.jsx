@@ -13,19 +13,26 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import Select from "react-select";
+import Select from "react-dropdown-select";
 import { centro } from "@/assets/json/centro";
 import { mesa } from "@/assets/json/mesa";
 import { dirigente } from "@/assets/json/dirigente";
 
 const CreateModal = () => {
   const [botonDeshabilitado, setBotonDeshabilitado] = useState(true);
+  const [valueCentro, setValueCentro] = useState("");
+  const [valueMesa, setValueMesa] = useState("");
+  const [valueDirigente, setValueDirigente] = useState("");
 
   //FUNCTION: Variables del form (react-hook-form)
   const { register, handleSubmit } = useForm();
 
   //FUNCTION: onSubmit del form (react-hook-form)
   const onSubmit = (data) => {
+    data.centro = valueCentro;
+    data.mesa = valueMesa;
+    data.dirigente = valueDirigente;
+
     // Creamos un nuevo objeto para almacenar los valores en minúsculas
     const lowerCaseData = {};
 
@@ -37,7 +44,9 @@ const CreateModal = () => {
         lowerCaseData[key] = data[key].toLowerCase();
       }
     }
+
     console.log(lowerCaseData);
+    limpiar();
   };
 
   const checkInputs = () => {
@@ -45,19 +54,33 @@ const CreateModal = () => {
     const valueApellido = document.getElementById("apellido").value;
     const valueDireccion = document.getElementById("direccion").value;
     const valueCedula = document.getElementById("cedula").value;
-    const valueCentro = document.getElementById("centro").value;
+
     if (
       valueNombre !== "" &&
       valueApellido !== "" &&
       valueDireccion !== "" &&
       valueCedula !== "" &&
-      valueCentro !== ""
+      valueCentro !== "" &&
+      valueMesa !== "" &&
+      valueDirigente !== ""
     ) {
       setBotonDeshabilitado(false);
     } else {
       setBotonDeshabilitado(true);
     }
   };
+
+  const limpiar = () => {
+    setValueCentro("");
+    setValueMesa("");
+    setValueDirigente("");
+  };
+
+  useEffect(() => {
+    if (valueCentro || valueMesa || valueDirigente) {
+      checkInputs();
+    }
+  }, [valueCentro, valueMesa, valueDirigente]);
 
   return (
     <>
@@ -112,7 +135,7 @@ const CreateModal = () => {
 
                 <div>
                   {/*//* Cedula label */}
-                  <label>Cédula</label>
+                  <label>cédula</label>
                   {/*//* Cedula input */}
                   <input
                     id="cedula"
@@ -128,7 +151,7 @@ const CreateModal = () => {
 
                 <div>
                   {/*//* Direccion label */}
-                  <label>Dirección</label>
+                  <label>dirección</label>
                   {/*//* Direccion input */}
                   <input
                     id="direccion"
@@ -145,23 +168,47 @@ const CreateModal = () => {
                 <div>
                   <div>
                     {/*//* Centro label */}
-                    <label>Centro de votacón</label>
+                    <label>centro de votacón</label>
                   </div>
                   {/*//* Centro select */}
                   <Select
-                    className="basic-single"
-                    classNamePrefix="select"
-                    isDisabled={false}
-                    isLoading={false}
-                    isClearable={false}
-                    isRtl={false}
-                    isSearchable={true}
-                    defaultValue={centro[0]}
-                    name="centro"
                     options={centro}
-                    id="centro"
-                    onChange={() => {
-                      checkInputs();
+                    labelField="label"
+                    valueField="value"
+                    onChange={(items) => {
+                      setValueCentro(items[0].value);
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <div>
+                    {/*//* Mesa label */}
+                    <label>mesa</label>
+                  </div>
+                  {/*//* Mesa select */}
+                  <Select
+                    options={mesa}
+                    labelField="label"
+                    valueField="value"
+                    onChange={(items) => {
+                      setValueMesa(items[0].value);
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <div>
+                    {/*//* Dirigente label */}
+                    <label>dirigente</label>
+                  </div>
+                  {/*//* Dirigente select */}
+                  <Select
+                    options={dirigente}
+                    labelField="label"
+                    valueField="value"
+                    onChange={(items) => {
+                      setValueDirigente(items[0].value);
                     }}
                   />
                 </div>
@@ -175,7 +222,15 @@ const CreateModal = () => {
                     type="submit"
                   />
                 </AlertDialogAction>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogCancel asChild>
+                  <div
+                    onClick={() => {
+                      limpiar();
+                    }}
+                  >
+                    Cancelar
+                  </div>
+                </AlertDialogCancel>
               </AlertDialogFooter>
             </form>
           </AlertDialogDescription>

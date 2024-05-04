@@ -1,6 +1,6 @@
 export const centro = [
   {
-    value: "Ninguno",
+    value: "",
     label: "Ninguno",
   },
   {
